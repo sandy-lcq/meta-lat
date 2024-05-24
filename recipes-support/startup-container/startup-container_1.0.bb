@@ -22,13 +22,13 @@ SYSTEMD_SERVICE:${PN} = "load-docker-images.service"
 
 do_install () {
     install -d ${D}${libexecdir}/
-    install -m 0755 ${WORKDIR}/load-docker-images ${D}${libexecdir}/
-    install -m 0755 ${WORKDIR}/run-docker-images ${D}${libexecdir}/
-    install -m 0755 ${WORKDIR}/auto-start-containers ${D}${libexecdir}/
+    install -m 0755 ${UNPACKDIR}/load-docker-images ${D}${libexecdir}/
+    install -m 0755 ${UNPACKDIR}/run-docker-images ${D}${libexecdir}/
+    install -m 0755 ${UNPACKDIR}/auto-start-containers ${D}${libexecdir}/
 
     install -d ${D}${systemd_unitdir}/system/
-    install -m 0664 ${WORKDIR}/load-docker-images.service ${D}${systemd_unitdir}/system
-    install -m 0664 ${WORKDIR}/start-container@.service ${D}${systemd_unitdir}/system
+    install -m 0664 ${UNPACKDIR}/load-docker-images.service ${D}${systemd_unitdir}/system
+    install -m 0664 ${UNPACKDIR}/start-container@.service ${D}${systemd_unitdir}/system
 
     install -d ${D}/var/docker-images/
 }

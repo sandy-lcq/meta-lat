@@ -70,8 +70,8 @@ SRC_URI += "\
 
 do_install:append() {
 	mkdir -p ${D}${SDKPATHNATIVE}/environment-setup.d
-	install -m 0755 ${WORKDIR}/add_path.sh ${D}${SDKPATHNATIVE}/environment-setup.d
-	install -m 0755 ${WORKDIR}/bash_tab_completion.sh ${D}${SDKPATHNATIVE}/environment-setup.d
+	install -m 0755 ${UNPACKDIR}/add_path.sh ${D}${SDKPATHNATIVE}/environment-setup.d
+	install -m 0755 ${UNPACKDIR}/bash_tab_completion.sh ${D}${SDKPATHNATIVE}/environment-setup.d
 }
 
 FILES:${PN} = "${SDKPATHNATIVE}"

@@ -110,7 +110,7 @@ FILES:${PN}-console = " \
 "
 
 do_install() {
-	install -m 0755 ${WORKDIR}/init-ostree-install.sh ${D}/install
+	install -m 0755 ${UNPACKDIR}/init-ostree-install.sh ${D}/install
 	sed -i -e 's#@OSTREE_OSNAME@#${OSTREE_OSNAME}#g' ${D}/install
 	if [ "${OSTREE_FDISK_BLM}" != "" ] ; then
 		sed -i -e 's/^BLM=.*/BLM=${OSTREE_FDISK_BLM}/' ${D}/install
@@ -124,7 +124,7 @@ do_install() {
 	if [ "${OSTREE_FDISK_RSZ}" != "" ] ; then
 		sed -i -e 's/^RSZ=.*/RSZ=${OSTREE_FDISK_RSZ}/' ${D}/install
 	fi
-        install -m 0755 ${WORKDIR}/init-ostree.sh ${D}/init
+        install -m 0755 ${UNPACKDIR}/init-ostree.sh ${D}/init
 	if [ "${OSTREE_FDISK_VSZ}" != "" ] ; then
 		sed -i -e 's/^VSZ=.*/VSZ=${OSTREE_FDISK_VSZ}/' ${D}/install
 		sed -i -e 's/^VSZ=.*/VSZ=${OSTREE_FDISK_VSZ}/' ${D}/init
@@ -132,14 +132,14 @@ do_install() {
 	if [ "${OSTREE_ALLOW_RM_VAR}" != "" ] ; then
 		sed -i -e 's/^ALLOW_RM_VAR=.*/ALLOW_RM_VAR=${OSTREE_ALLOW_RM_VAR}/' ${D}/init
 	fi
-	install -m 0755 ${WORKDIR}/init.luks-ostree ${D}/init.luks-ostree
+	install -m 0755 ${UNPACKDIR}/init.luks-ostree ${D}/init.luks-ostree
 	sed -i -e 's#@OSTREE_OSNAME@#${OSTREE_OSNAME}#g' ${D}/init.luks-ostree
 	# Create device nodes expected by some kernels in initramfs
 	# before even executing /init.
 	install -d ${D}/dev
 	mknod -m 622 ${D}/dev/console c 5 1
-	install -m 0755 ${WORKDIR}/lat-installer.sh ${D}/lat-installer.sh
-	install -m 0755 ${WORKDIR}/lat-installer.hook ${D}/lat-installer.hook
+	install -m 0755 ${UNPACKDIR}/lat-installer.sh ${D}/lat-installer.sh
+	install -m 0755 ${UNPACKDIR}/lat-installer.hook ${D}/lat-installer.hook
 }
 
 # While this package maybe an allarch due to it being a 

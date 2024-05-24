@@ -18,10 +18,10 @@ do_unpack:append() {
 }
 
 do_copy_src() {
-    install -m 0644 ${WORKDIR}/COPYING ${S}/
+    install -m 0644 ${UNPACKDIR}/COPYING ${S}/
     install -d ${S}/appsdk
-    install -m 0644 ${WORKDIR}/appsdk/*.py ${S}/appsdk
+    install -m 0644 ${UNPACKDIR}/appsdk/*.py ${S}/appsdk
 
-    install -m 0644 ${WORKDIR}/README.md ${S}
-    install -m 0644 ${WORKDIR}/setup.py ${S}
+    install -m 0644 ${UNPACKDIR}/README.md ${S}
+    install -m 0644 ${UNPACKDIR}/setup.py ${S}
 }

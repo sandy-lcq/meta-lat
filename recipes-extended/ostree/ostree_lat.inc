@@ -53,6 +53,6 @@ PACKAGECONFIG:append = " \
 
 do_install:append:class-target() {
 	install -d ${D}/${bindir}
-	install -m 0755 ${WORKDIR}/system-export.sh ${D}/${bindir}/system-export
-	install -m 0755 ${WORKDIR}/init-ostree-no-initramfs.sh ${D}/init-ostree-pre.sh
+	install -m 0755 ${UNPACKDIR}/system-export.sh ${D}/${bindir}/system-export
+	install -m 0755 ${UNPACKDIR}/init-ostree-no-initramfs.sh ${D}/init-ostree-pre.sh
 }

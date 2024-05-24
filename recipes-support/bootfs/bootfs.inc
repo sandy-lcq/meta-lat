@@ -3,13 +3,15 @@ SUMMARY = "OSTree Network/Disk Image deployment tool"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
 
-S = "${WORKDIR}"
-
 SRC_URI = "file://COPYING \
            file://bootfs.sh \
            file://bootfs_wrapper.sh \
            file://marvell-cn96xx-sd.sh \
           "
+
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 FILESEXTRAPATHS:prepend := "${LAYER_PATH_lat-layer}/scripts:"
 
 FILES:${PN} += "${datadir}/bootfs \

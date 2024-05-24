@@ -26,7 +26,7 @@ do_install:append:class-native() {
 
 do_install:append:class-target() {
     install -d ${D}${EFI_BOOT_PATH}
-    install -m 0600 "${WORKDIR}/grub-runtime.cfg" "${D}${EFI_BOOT_PATH}/grub.cfg"
+    install -m 0600 "${UNPACKDIR}/grub-runtime.cfg" "${D}${EFI_BOOT_PATH}/grub.cfg"
     sed -i "s#%DISTRO_NAME%#${DISTRO_NAME}#g" "${D}${EFI_BOOT_PATH}/grub.cfg"
     sed -i "s#%DISTRO_VERSION%#${DISTRO_VERSION}#g" "${D}${EFI_BOOT_PATH}/grub.cfg"
     echo -n "password_pbkdf2 ${OSTREE_GRUB_USER} " > ${WORKDIR}/pw

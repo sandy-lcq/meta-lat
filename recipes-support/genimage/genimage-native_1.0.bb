@@ -121,8 +121,8 @@ do_install[depends] += "initramfs-ostree:do_export_yocto_vars"
 
 do_install:append() {
     mkdir -p ${D}${base_prefix}/environment-setup.d
-    install -m 0755 ${WORKDIR}/bash_tab_completion.sh ${D}${base_prefix}/environment-setup.d
-    sed "s/@MACHINE@/${MACHINE}/g" ${WORKDIR}/environment-appsdk-native > ${D}${base_prefix}/environment-appsdk-native
+    install -m 0755 ${UNPACKDIR}/bash_tab_completion.sh ${D}${base_prefix}/environment-setup.d
+    sed "s/@MACHINE@/${MACHINE}/g" ${UNPACKDIR}/environment-appsdk-native > ${D}${base_prefix}/environment-appsdk-native
 
     install -m 0755 ${RECIPE_SYSROOT}${bindir_native}/crossscripts/qemuwrapper \
         ${D}${bindir}/crossscripts

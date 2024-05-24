@@ -170,8 +170,8 @@ QEMU_ARGS[gconftool-2] = "-E GCONF_BACKEND_DIR=$D/usr/lib/GConf/2"
 python do_create_cross_cmd_wrapper () {
     # cmd_wrapper.in -> glib-compile-schemas or ...
     cross_cmds = (d.getVar("CROSS_CMDS") or "").split()
-    dest = os.path.join(d.getVar("WORKDIR"), "crossscripts")
-    wrapper_template = os.path.join(d.getVar("WORKDIR"),"crossscript_wrapper.in")
+    dest = os.path.join(d.getVar("UNPACKDIR"), "crossscripts")
+    wrapper_template = os.path.join(d.getVar("UNPACKDIR"),"crossscript_wrapper.in")
     with open(wrapper_template, "r") as template:
         cmd_content = template.read()
         for cmd in cross_cmds:
@@ -229,21 +229,21 @@ PKG_MNGT_PACKAGE = " \
 
 do_copy_src() {
     install -d ${SETUPTOOLS_SETUP_PATH}
-    install -m 0644 ${WORKDIR}/genimage/COPYING ${SETUPTOOLS_SETUP_PATH}/
+    install -m 0644 ${S}/COPYING ${SETUPTOOLS_SETUP_PATH}/
     install -d ${SETUPTOOLS_SETUP_PATH}/genimage
-    install -m 0644 ${WORKDIR}/genimage/*.py ${SETUPTOOLS_SETUP_PATH}/genimage
-    cp -rf ${WORKDIR}/genimage/package_manager ${SETUPTOOLS_SETUP_PATH}/genimage/
+    install -m 0644 ${S}/*.py ${SETUPTOOLS_SETUP_PATH}/genimage
+    cp -rf ${S}/package_manager ${SETUPTOOLS_SETUP_PATH}/genimage/
 
-    install -m 0644 ${WORKDIR}/METADATA.in ${SETUPTOOLS_SETUP_PATH}
-    install -m 0644 ${WORKDIR}/README.md ${SETUPTOOLS_SETUP_PATH}
-    install -m 0644 ${WORKDIR}/setup.py ${SETUPTOOLS_SETUP_PATH}
+    install -m 0644 ${UNPACKDIR}/METADATA.in ${SETUPTOOLS_SETUP_PATH}
+    install -m 0644 ${UNPACKDIR}/README.md ${SETUPTOOLS_SETUP_PATH}
+    install -m 0644 ${UNPACKDIR}/setup.py ${SETUPTOOLS_SETUP_PATH}
 }
 
 python do_write_py_template () {
     # constant.py.in -> constant.py and expand variables
-    py_templates = [os.path.join(d.getVar("WORKDIR"),"genimage","constant.py.in"),
-                    os.path.join(d.getVar("WORKDIR"),"genimage","fit_constant.py.in"),
-                    os.path.join(d.getVar("WORKDIR"),"genimage","debian_constant.py.in")]
+    py_templates = [os.path.join(d.getVar("S"),"constant.py.in"),
+                    os.path.join(d.getVar("S"),"fit_constant.py.in"),
+                    os.path.join(d.getVar("S"),"debian_constant.py.in")]
     for py_t in py_templates:
         body = "null"
         with open(py_t, "r") as pytf:
@@ -266,9 +266,9 @@ LAT_XFCE_THEMES ??= ""
 
 do_install:append() {
 	install -d ${D}${datadir}/genimage/
-	cp -rf ${WORKDIR}/genimage/data ${D}${datadir}/genimage/
-	cp -rf ${WORKDIR}/genimage/scripts ${D}${datadir}/genimage/
-	cp -rf ${WORKDIR}/genimage/doc ${D}${datadir}/genimage/
+	cp -rf ${S}/data ${D}${datadir}/genimage/
+	cp -rf ${S}/scripts ${D}${datadir}/genimage/
+	cp -rf ${S}/doc ${D}${datadir}/genimage/
 	install -d ${D}${datadir}/genimage/rpm_keys/
 	cp ${OSTREE_GPGDIR}/RPM-GPG-PRIVKEY-${OSTREE_GPGID} ${D}${datadir}/genimage/rpm_keys/
 
@@ -276,7 +276,7 @@ do_install:append() {
 	cp -f ${LAYER_PATH_lat-layer}/wic/ostree-*.wks.in ${D}${datadir}/genimage/data/wic/
 
 	install -d ${D}${bindir}/crossscripts
-	install -m 0755 ${WORKDIR}/crossscripts/* ${D}${bindir}/crossscripts
+	install -m 0755 ${UNPACKDIR}/crossscripts/* ${D}${bindir}/crossscripts
 
 	if [ -n "${LAT_XFCE_THEMES}" ]; then
 		sed -i "/packages:/a - ${LAT_XFCE_THEMES}" \

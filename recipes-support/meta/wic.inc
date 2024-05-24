@@ -42,7 +42,7 @@ do_install() {
     rm -rf ${D}${datadir}/poky/.git*
 
     install -d ${D}${bindir}
-    install -m 755 ${WORKDIR}/wic_wrapper.sh ${D}${bindir}/wic
+    install -m 755 ${UNPACKDIR}/wic_wrapper.sh ${D}${bindir}/wic
 }
 
 INSANE_SKIP:${PN} = "file-rdeps"

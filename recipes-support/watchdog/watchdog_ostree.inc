@@ -18,7 +18,7 @@ RDEPENDS:${PN} += " \
 
 do_install:append() {
 	install -d ${D}${sbindir}
-	install -m 0755 ${WORKDIR}/clearbootflag_${ARCH_WATCHDOG_SETTING}.sh ${D}${sbindir}/clearbootflag.sh
+	install -m 0755 ${UNPACKDIR}/clearbootflag_${ARCH_WATCHDOG_SETTING}.sh ${D}${sbindir}/clearbootflag.sh
 	if [ -e "${D}${systemd_system_unitdir}/watchdog.service" ] ; then
 		sed -i "/ExecStart=/a ExecStartPost=-/usr/sbin/clearbootflag.sh" ${D}${systemd_system_unitdir}/watchdog.service
 	fi
